@@ -1,6 +1,17 @@
 
 version: 2
 
+sources:
+  - name: RAW
+    description: "Schema where raw data is stored"
+    database: TAG_TEST_DB
+    schema: DBT_PKOTANGALE
+    tables:
+      - name: RAW_SALES
+        description: "Raw sales data loaded from Snowflake"
+      - name: CUSTOMERS_RAW
+        description: "Raw customer master data"
+
 models:
     - name: my_first_dbt_model
       description: "A starter dbt model"
@@ -19,3 +30,61 @@ models:
             tests:
                 - unique
                 - not_null
+
+    - name: sales_base
+      description: "Base sales data model loaded from RAW layer"
+      columns:
+        - name: order_id
+          description: "Unique order identifier"
+          tests:
+            - not_null
+        - name: customer_id
+          description: "Customer placing the order"
+        - name: order_date
+          description: "Date when the order was placed"
+        - name: amount
+          description: "Order amount in USD"
+      meta:
+        tags:
+          - source:raw
+          - domain:sales
+          - owner:prachita
+
+    - name: sales_summary
+      description: "Aggregated sales metrics per customer"
+      columns:
+        - name: customer_id
+          description: "Customer identifier"
+        - name: total_orders
+          description: "Total number of orders"
+        - name: total_amount
+          description: "Sum of all orders"
+        - name: avg_order_value
+          description: "Average order value"
+      meta:
+        tags:
+          - layer:transform
+          - domain:sales
+          - owner:prachita
+
+    - name: customers_base
+      description: "Cleansed customer data from CUSTOMERS_RAW"
+      columns:
+        - name: customer_id
+          description: "Customer unique identifier"
+          tests:
+            - not_null
+            - unique
+        - name: first_name
+          description: "Customer first name"
+        - name: last_name
+          description: "Customer last name"
+        - name: city
+          description: "City of the customer"
+        - name: signup_date
+          description: "Date customer signed up"
+      meta:
+        tags:
+          - domain:customer
+          - layer:base
+          - owner:prachita
