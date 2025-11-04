@@ -15,6 +15,7 @@ sources:
 models:
     - name: my_first_dbt_model
       description: "A starter dbt model"
+      tags: ['gold']
       columns:
           - name: id
             description: "The primary key for this table"
@@ -44,11 +45,7 @@ models:
           description: "Date when the order was placed"
         - name: amount
           description: "Order amount in USD"
-      meta:
-        tags:
-          - source:raw
-          - domain:sales
-          - owner:prachita
+
 
     - name: sales_summary
       description: "Aggregated sales metrics per customer"
@@ -61,11 +58,7 @@ models:
           description: "Sum of all orders"
         - name: avg_order_value
           description: "Average order value"
-      meta:
-        tags:
-          - layer:transform
-          - domain:sales
-          - owner:prachita
+
 
     - name: customer_base
       description: "Cleansed customer data from CUSTOMERS_RAW"
@@ -77,14 +70,13 @@ models:
             - unique
         - name: first_name
           description: "Customer first name"
+          tags: ['PII.Sensitive', 'Tier.Tier1', 'Test.T1']
         - name: last_name
           description: "Customer last name"
+          tags: ['PII.Sensitive']
         - name: city
           description: "City of the customer"
+          tags: ['db1', 'db2', 'db3']
         - name: signup_date
           description: "Date customer signed up"
-      meta:
-        tags:
-          - domain:customer
-          - layer:base
-          - owner:prachita
+          tags: []
