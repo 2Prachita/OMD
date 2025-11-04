@@ -67,7 +67,7 @@ models:
           - domain:sales
           - owner:prachita
 
-    - name: customers_base
+    - name: customer_base
       description: "Cleansed customer data from CUSTOMERS_RAW"
       columns:
         - name: customer_id
