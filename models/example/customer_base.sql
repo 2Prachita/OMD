@@ -1,7 +1,12 @@
 -- models/examples/customer_base.sql
 
 {{ config(
-    materialized='table'
+    materialized='table',
+    tags=['PII.Sensitive', 'priority'],
+    meta={
+      'PII': 'Sensitive',
+      'classification': 'internal'
+    }
 ) }}
 
 SELECT
