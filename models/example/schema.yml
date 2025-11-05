@@ -15,7 +15,10 @@ sources:
 models:
     - name: my_first_dbt_model
       description: "A starter dbt model"
-      tags: ['gold']
+      tags: ["sales", "priority"]
+      meta:
+        owner: "data-team"
+        classification: "internal"
       columns:
           - name: id
             description: "The primary key for this table"
@@ -62,6 +65,10 @@ models:
 
     - name: customer_base
       description: "Cleansed customer data from CUSTOMERS_RAW"
+      tags: ["PII.Sensitive", "priority"]
+      meta:
+        PII: "Sensitive"
+        classification: "internal"
       columns:
         - name: customer_id
           description: "Customer unique identifier"
