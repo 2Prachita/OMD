@@ -11,24 +11,33 @@ sources:
 
 models:
   - name: customer_clean
-    description: "Cleaned customer data"
+    description: "Cleaned customer data prepared from RAW_CUSTOMERS"
     meta:
-      PII: "Sensitive"
-      classification: "internal"
+      PII: "Sensitive"                     # Existing classification in OMD
+      classification: "internal"           # Custom governance field
+      tags: ["priority", "marketing"]      # ➕ New tags (will be created under dbtTags)
     columns:
       - name: customer_id
-        description: "Unique ID"
+        description: "Unique customer identifier"
+        meta:
+          tags: ["PII.Sensitive", "Tier.Tier1"]   # ✅ Existing tags from OMD
+
       - name: first_name
         description: "Customer first name"
         meta:
-          tags: ["PII.Sensitive"]
+          tags: ["PII.Sensitive", "priority"]      # ✅ + ➕ Combo (existing + new)
+
       - name: last_name
         description: "Customer last name"
         meta:
-          tags: ["PII.Sensitive"]
+          tags: ["PII.Sensitive", "Certification.Gold"]  # ✅ existing
+
       - name: city
-        description: "Customer city"
+        description: "City of residence"
         meta:
-          tags: ["Geo.City"]
+          tags: ["Geo.City", "customer_focus", "dbt_auto_tag"]  # ✅ + ➕
+
       - name: signup_date
-        description: "Signup date"
+        description: "Customer signup date"
+        meta:
+          tags: ["Tier.Tier2"]                          # ✅ existing OMD tag
