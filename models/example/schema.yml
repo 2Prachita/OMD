@@ -12,32 +12,38 @@ sources:
 models:
   - name: customer_clean
     description: "Cleaned customer data prepared from RAW_CUSTOMERS"
+    tags: ["priority", "marketing"]          # ✅ Table-level tags (read by OMD)
     meta:
-      PII: "Sensitive"                     # Existing classification in OMD
-      classification: "internal"           # Custom governance field
-      tags: ["priority", "marketing"]      # ➕ New tags (will be created under dbtTags)
+      PII: "Sensitive"                       # Existing classification in OMD
+      classification: "internal"             # Custom governance field
+      tags: ["priority", "marketing"]        # Also stored in meta for dbt metadata
     columns:
       - name: customer_id
         description: "Unique customer identifier"
+        tags: ["PII.Sensitive", "Tier.Tier1"]    # ✅ Added for OMD ingestion
         meta:
-          tags: ["PII.Sensitive", "Tier.Tier1"]   # ✅ Existing tags from OMD
+          tags: ["PII.Sensitive", "Tier.Tier1"]  # Retained for dbt manifest context
 
       - name: first_name
         description: "Customer first name"
+        tags: ["PII.Sensitive", "priority"]      # ✅ Combo tag (existing + new)
         meta:
-          tags: ["PII.Sensitive", "priority"]      # ✅ + ➕ Combo (existing + new)
+          tags: ["PII.Sensitive", "priority"]
 
       - name: last_name
         description: "Customer last name"
+        tags: ["PII.Sensitive", "Certification.Gold"]  # ✅ OMD-compatible
         meta:
-          tags: ["PII.Sensitive", "Certification.Gold"]  # ✅ existing
+          tags: ["PII.Sensitive", "Certification.Gold"]
 
       - name: city
         description: "City of residence"
+        tags: ["Geo.City", "customer_focus", "dbt_auto_tag"]  # ✅ Mixed (existing + new)
         meta:
-          tags: ["Geo.City", "customer_focus", "dbt_auto_tag"]  # ✅ + ➕
+          tags: ["Geo.City", "customer_focus", "dbt_auto_tag"]
 
       - name: signup_date
         description: "Customer signup date"
+        tags: ["Tier.Tier2"]                   # ✅ Existing OMD tag
         meta:
-          tags: ["Tier.Tier2"]                          # ✅ existing OMD tag
+          tags: ["Tier.Tier2"]
