@@ -13,4 +13,4 @@ SELECT
     INITCAP(last_name)  AS last_name,
     UPPER(city)         AS city,
     signup_date
-FROM {{ source('RAW_PRAJITA', 'RAW_CUSTOMERS') }};
+FROM {{ source('RAW_PRAJITA', 'RAW_CUSTOMERS') }}
