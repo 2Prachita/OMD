@@ -2,8 +2,8 @@
 
 {{ config(
     materialized='table',
-    tags=['PII.Sensitive', 'priority'],
     meta={
+      'tags': ['PII.Sensitive', 'priority'],
       'PII': 'Sensitive',
       'classification': 'internal'
     }

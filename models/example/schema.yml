@@ -72,13 +72,17 @@ models:
           - unique
       - name: first_name
         description: "Customer first name"
-        tags: ['PII.Sensitive', 'Tier.Tier1', 'Test.T1']
+        meta:
+          tags: ['PII.Sensitive', 'Tier.Tier1', 'Test.T1']
       - name: last_name
         description: "Customer last name"
-        tags: ['PII.Sensitive']
+        meta:
+          tags: ['PII.Sensitive']
       - name: city
         description: "City of the customer"
-        tags: ['db1', 'db2', 'db3']
+        meta:
+          tags: ['db1', 'db2', 'db3']
       - name: signup_date
         description: "Date customer signed up"
-        tags: []
+        meta:
+          tags: []
