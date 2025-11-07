@@ -1,88 +1,34 @@
 version: 2
 
 sources:
-  - name: RAW
-    description: "Schema where raw data is stored"
-    database: TAG_TEST_DB
-    schema: DBT_PKOTANGALE
+  - name: RAW_PRAJITA
+    description: "Schema for raw input data"
+    database: TAG_DEMO_DB
+    schema: RAW_PRACH
     tables:
-      - name: RAW_SALES
-        description: "Raw sales data loaded from Snowflake"
-      - name: CUSTOMERS_RAW
-        description: "Raw customer master data"
+      - name: RAW_CUSTOMERS
+        description: "Raw customer dataset loaded from Snowflake"
 
 models:
-  - name: my_first_dbt_model
-    description: "A starter dbt model"
-    meta:
-      owner: "data-team"
-      classification: "internal"
-    columns:
-      - name: id
-        description: "The primary key for this table"
-        tests:
-          - unique
-          - not_null
-
-  - name: my_second_dbt_model
-    description: "A starter dbt model"
-    columns:
-      - name: id
-        description: "The primary key for this table"
-        tests:
-          - unique
-          - not_null
-
-  - name: sales_base
-    description: "Base sales data model loaded from RAW layer"
-    columns:
-      - name: order_id
-        description: "Unique order identifier"
-        tests:
-          - not_null
-      - name: customer_id
-        description: "Customer placing the order"
-      - name: order_date
-        description: "Date when the order was placed"
-      - name: amount
-        description: "Order amount in USD"
-
-  - name: sales_summary
-    description: "Aggregated sales metrics per customer"
-    columns:
-      - name: customer_id
-        description: "Customer identifier"
-      - name: total_orders
-        description: "Total number of orders"
-      - name: total_amount
-        description: "Sum of all orders"
-      - name: avg_order_value
-        description: "Average order value"
-
-  - name: customer_base
-    description: "Cleansed customer data from CUSTOMERS_RAW"
+  - name: customer_clean
+    description: "Cleaned customer data"
     meta:
       PII: "Sensitive"
       classification: "internal"
     columns:
       - name: customer_id
-        description: "Customer unique identifier"
-        tests:
-          - not_null
-          - unique
+        description: "Unique ID"
       - name: first_name
         description: "Customer first name"
         meta:
-          tags: ['PII.Sensitive', 'Tier.Tier1', 'Test.T1']
+          tags: ["PII.Sensitive"]
       - name: last_name
         description: "Customer last name"
         meta:
-          tags: ['PII.Sensitive']
+          tags: ["PII.Sensitive"]
       - name: city
-        description: "City of the customer"
+        description: "Customer city"
         meta:
-          tags: ['db1', 'db2', 'db3']
+          tags: ["Geo.City"]
       - name: signup_date
-        description: "Date customer signed up"
-        meta:
-          tags: []
+        description: "Signup date"
