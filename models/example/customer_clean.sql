@@ -1,10 +1,5 @@
 {{ config(
-    materialized='table',
-    meta={
-      'classification': 'internal',
-      'PII': 'Sensitive',
-      'tags': ['PII.Sensitive', 'Tier.Tier1']
-    }
+    materialized='table'
 ) }}
 
 SELECT
