@@ -10,7 +10,7 @@ sources:
         description: "Raw customer dataset loaded from Snowflake"
 
 models:
-  - name: CUSTOMER_CLEAN
+  - name: customer_clean
     description: "Cleaned customer data prepared from RAW_CUSTOMERS"
     tags: ["priority", "marketing"]          # ✅ Table-level tags (read by OMD)
     meta:
