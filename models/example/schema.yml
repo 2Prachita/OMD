@@ -3,14 +3,14 @@ version: 2
 sources:
   - name: RAW_PRAJITA
     description: "Schema for raw input data"
-    database: TAG_DEMO_DB
-    schema: RAW_PRACH
+    database: DBTCLOUDTEST
+    schema: RAW
     tables:
       - name: RAW_CUSTOMERS
         description: "Raw customer dataset loaded from Snowflake"
 
 models:
-  - name: customer_clean
+  - name: CUSTOMER_CLEAN
     description: "Cleaned customer data prepared from RAW_CUSTOMERS"
     tags: ["priority", "marketing"]          # ✅ Table-level tags (read by OMD)
     meta:
